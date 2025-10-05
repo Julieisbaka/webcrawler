@@ -5,6 +5,7 @@ A Python package for recursive web crawling with advanced anti-detection feature
 ## Features
 
 ### Core Crawling
+
 - **Recursive Crawling**: Starts from a seed URL and follows all links found on each page
 - **Depth Control**: Configurable maximum crawling depth to prevent infinite loops
 - **Domain Filtering**: Option to crawl only within the same domain or across domains
@@ -12,6 +13,7 @@ A Python package for recursive web crawling with advanced anti-detection feature
 - **Robots.txt Support**: Respects robots.txt rules and crawl delays (configurable)
 
 ### Anti-Detection Features 🛡️
+
 - **User Agent Rotation**: Rotates through realistic browser user agent strings
 - **Proxy Rotation**: Distributes requests across multiple IP addresses
 - **HTTP Header Randomization**: Randomizes headers to appear more human-like
@@ -21,6 +23,7 @@ A Python package for recursive web crawling with advanced anti-detection feature
 - **SSL Verification Control**: Configurable SSL certificate verification
 
 ### Advanced Configuration
+
 - **Multiple Delay Strategies**: Choose from fixed, random, exponential, or adaptive delays
 - **Proxy Health Monitoring**: Automatic proxy validation and failure handling
 - **Request Monitoring**: Track response times and adapt crawling behavior
@@ -30,11 +33,13 @@ A Python package for recursive web crawling with advanced anti-detection feature
 ## Installation
 
 ### From PyPI (when published)
+
 ```bash
 pip install webcrawler
 ```
 
 ### From Source
+
 ```bash
 git clone <repository-url>
 cd webcrawler
@@ -42,6 +47,7 @@ pip install .
 ```
 
 ### Development Installation
+
 ```bash
 git clone <repository-url>
 cd webcrawler
@@ -183,7 +189,7 @@ for strategy in strategies:
 
 ## Package Structure
 
-```
+```tree
 webcrawler/
 ├── webcrawler/           # Main package directory
 │   ├── __init__.py      # Package initialization
@@ -210,6 +216,7 @@ webcrawler/
 ## Quick Start
 
 1. **Clone and install**:
+
 ```bash
 git clone <repository-url>
 cd webcrawler
@@ -217,12 +224,14 @@ python quickstart.py
 ```
 
 2. **Test the CLI**:
+
 ```bash
 webcrawler --help
 webcrawler https://httpbin.org --max-pages 5
 ```
 
 3. **Run examples**:
+
 ```bash
 python examples/basic_example.py
 python examples/advanced_example.py
@@ -310,6 +319,7 @@ The crawler saves data in JSON format with the following structure:
 ## Error Handling
 
 The crawler handles various types of errors:
+
 - Network timeouts
 - Connection errors
 - HTTP error codes
