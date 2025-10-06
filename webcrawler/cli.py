@@ -270,7 +270,7 @@ def load_proxies_from_file(filepath: str) -> List[Dict[str, str]]:
     requested_path = os.path.realpath(os.path.join(base_dir, filepath))
     # Only allow access within base_dir using robust path check
     try:
-        if os.path.commonpath([base_dir, requested_path]) != base_dir:
+        if os.path.commonpath([base_dir, requested_path]) != os.path.commonpath([base_dir]):
             print(f"Error: Access to files outside directory '{PROXY_FILES_DIR}' is not allowed.")
             return []
     except ValueError:
