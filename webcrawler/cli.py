@@ -257,12 +257,12 @@ def load_proxies_from_file(filepath: str) -> List[Dict[str, str]]:
         List of proxy dictionaries
     """
     proxies = []
-    # Normalize and validate the filepath
-    base_dir = os.path.abspath(PROXY_FILES_DIR)
-    requested_path = os.path.abspath(os.path.normpath(os.path.join(base_dir, filepath)))
-    if not requested_path.startswith(base_dir):
-        print(f"Error: Access to files outside directory '{PROXY_FILES_DIR}' is not allowed.")
+    # Only allow filenames, not paths
+    if os.path.isabs(filepath) or os.path.basename(filepath) != filepath:
+        print(f"Error: Only filenames are allowed, not paths. Access to files outside directory '{PROXY_FILES_DIR}' is not allowed.")
         return []
+    base_dir = os.path.abspath(PROXY_FILES_DIR)
+    requested_path = os.path.abspath(os.path.join(base_dir, filepath))
     try:
         with open(requested_path, 'r') as f:
             for line in f:
