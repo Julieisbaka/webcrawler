@@ -260,7 +260,6 @@ def load_proxies_from_file(filepath: str) -> List[Dict[str, str]]:
     # Only allow filenames, not paths
     if (
         os.path.isabs(filepath)
-        or os.path.normpath(filepath) != filepath
         or '/' in filepath
         or '\\' in filepath
     ):
