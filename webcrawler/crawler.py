@@ -9,6 +9,7 @@ import time
 import json
 import logging
 import requests
+import os
 from typing import Set, List, Dict, Optional, Any, Tuple
 from collections import deque
 from urllib.parse import urlparse
@@ -746,9 +747,18 @@ class WebCrawler:
             indent: JSON indentation level
         """
         try:
-            with open(filename, 'w', encoding='utf-8') as f:
+            # Securely resolve the output path to prevent directory traversal and absolute path usage.
+            base_dir = os.getcwd()
+            # Optionally, output to a subdirectory: e.g. base_dir = os.path.join(base_dir, 'results')
+            full_path = os.path.abspath(os.path.normpath(os.path.join(base_dir, filename)))
+            if not full_path.startswith(base_dir):
+                raise CrawlerError(f"Invalid output filename: {filename} (path traversal is not allowed)")
+            # Optionally, check file extension (uncomment if you want this extra restriction)
+            # if not full_path.lower().endswith('.json'):
+            #     raise CrawlerError("Output filename must end with .json")
+            with open(full_path, 'w', encoding='utf-8') as f:
                 json.dump(self.crawled_data, f, indent=indent, ensure_ascii=False)
-            self.logger.info(f"Results saved to {filename}")
+            self.logger.info(f"Results saved to {full_path}")
         except Exception as e:
             raise CrawlerError(f"Failed to save results: {e}")
     
