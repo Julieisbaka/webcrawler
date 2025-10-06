@@ -276,7 +276,41 @@ python -m black --check webcrawler
 
 # Lint code
 python -m flake8 webcrawler --max-line-length=88
+
+# Sort imports
+python -m isort --profile black webcrawler
+
+# Run pylint
+python -m pylint webcrawler --max-line-length=88
 ```
+
+### CI/CD Workflows
+
+This project includes GitHub Actions workflows for continuous integration and deployment:
+
+#### CI Workflow
+
+The CI workflow (`.github/workflows/ci.yml`) runs automatically on every push and pull request to `master`/`main` branches:
+
+- **Tests**: Runs pytest with coverage across Python 3.8-3.12
+- **Code Quality Checks**:
+  - `black` - Code formatting validation
+  - `isort` - Import sorting validation
+  - `pylint` - Code linting (non-blocking)
+  - `flake8` - Additional style checks (non-blocking)
+
+#### PyPI Publishing Workflow
+
+The publish workflow (`.github/workflows/publish.yml`) automates package deployment:
+
+- **Automatic Publishing**: Triggers on GitHub releases
+- **Manual Testing**: Can be triggered manually to publish to Test PyPI
+- **Security**: Uses GitHub secrets for PyPI tokens (`PYPI_API_TOKEN` and `TEST_PYPI_API_TOKEN`)
+
+To publish a new version:
+1. Update version in `setup.py` and `pyproject.toml`
+2. Create a new GitHub release with a tag (e.g., `v0.0.2`)
+3. The workflow automatically builds and publishes to PyPI
 
 ## Output
 

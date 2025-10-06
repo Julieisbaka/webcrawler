@@ -18,14 +18,14 @@ Features:
 
 Example:
     Basic crawling:
-    
+
     >>> from webcrawler import WebCrawler
     >>> crawler = WebCrawler("https://example.com", max_depth=2)
     >>> results = crawler.crawl()
     >>> crawler.save_results('results.json')
-    
+
     Advanced crawling with anti-detection:
-    
+
     >>> crawler = WebCrawler(
     ...     "https://example.com",
     ...     enable_anti_detection=True,
@@ -35,17 +35,17 @@ Example:
     >>> results = crawler.crawl()
 """
 
-from .crawler import WebCrawler
-from .utils import URLValidator, LinkExtractor
-from .exceptions import CrawlerError, InvalidURLError, RequestError
 from .anti_detection import (
-    UserAgentRotator, 
-    ProxyRotator, 
-    DelayManager, 
-    SessionManager,
     AntiDetectionConfig,
-    generate_random_headers
+    DelayManager,
+    ProxyRotator,
+    SessionManager,
+    UserAgentRotator,
+    generate_random_headers,
 )
+from .crawler import WebCrawler
+from .exceptions import CrawlerError, InvalidURLError, RequestError
+from .utils import LinkExtractor, URLValidator
 
 __version__ = "0.0.1"
 __author__ = "JulieISBaka"
@@ -53,22 +53,19 @@ __email__ = "casperschorr06@gmail.com"
 
 __all__ = [
     # Core crawler
-    'WebCrawler',
-    
+    "WebCrawler",
     # Utility classes
-    'URLValidator', 
-    'LinkExtractor',
-    
+    "URLValidator",
+    "LinkExtractor",
     # Exception classes
-    'CrawlerError',
-    'InvalidURLError', 
-    'RequestError',
-    
+    "CrawlerError",
+    "InvalidURLError",
+    "RequestError",
     # Anti-detection classes
-    'UserAgentRotator',
-    'ProxyRotator',
-    'DelayManager',
-    'SessionManager',
-    'AntiDetectionConfig',
-    'generate_random_headers'
+    "UserAgentRotator",
+    "ProxyRotator",
+    "DelayManager",
+    "SessionManager",
+    "AntiDetectionConfig",
+    "generate_random_headers",
 ]
