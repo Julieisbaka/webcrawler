@@ -49,6 +49,8 @@ setup(
             'flake8>=5.0.0',
             'mypy>=1.0.0',
             'pre-commit>=2.20.0',
+            'isort>=5.0.0',
+            'pylint>=2.0.0',
         ],
         'docs': [
             'sphinx>=5.0.0',
