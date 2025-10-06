@@ -262,7 +262,7 @@ def load_proxies_from_file(filepath: str) -> List[Dict[str, str]]:
         print(f"Error: Only filenames are allowed, not paths. Access to files outside directory '{PROXY_FILES_DIR}' is not allowed.")
         return []
     base_dir = os.path.abspath(PROXY_FILES_DIR)
-    requested_path = os.path.abspath(os.path.join(base_dir, filepath))
+    requested_path = os.path.realpath(os.path.join(base_dir, filepath))
     # Only allow access within base_dir
     if not (requested_path == base_dir or requested_path.startswith(base_dir + os.sep)):
         print(f"Error: Access to files outside directory '{PROXY_FILES_DIR}' is not allowed. ({requested_path})")
