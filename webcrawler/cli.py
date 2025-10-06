@@ -266,7 +266,16 @@ def load_proxies_from_file(filepath: str) -> List[Dict[str, str]]:
         print(f"Error: Only filenames are allowed, not paths. Access to files outside directory '{PROXY_FILES_DIR}' is not allowed.")
         return []
     base_dir = os.path.abspath(PROXY_FILES_DIR)
-    requested_path = os.path.realpath(os.path.join(base_dir, filepath))
+    requested_path = os.path.abspath(os.path.join(base_dir, filepath))
+    # Check for symlinks in the path components between base_dir and requested_path
+    rel_path = os.path.relpath(requested_path, base_dir)
+    parts = rel_path.split(os.sep)
+    current_path = base_dir
+    for part in parts:
+        current_path = os.path.join(current_path, part)
+        if os.path.islink(current_path):
+            print(f"Error: Symlinks are not allowed in proxy file paths ('{current_path}' is a symlink).")
+            return []
     # Only allow access within base_dir using robust path check
     try:
         if os.path.commonpath([base_dir, requested_path]) != os.path.commonpath([base_dir]):
