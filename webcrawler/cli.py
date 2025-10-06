@@ -9,6 +9,7 @@ rotation, header randomization, and adaptive delay strategies.
 import argparse
 import logging
 import sys
+import os
 from typing import Optional, List, Dict
 
 from .crawler import WebCrawler
@@ -243,6 +244,8 @@ def validate_args(args) -> Optional[str]:
     return None
 
 
+PROXY_FILES_DIR = "proxies"
+
 def load_proxies_from_file(filepath: str) -> List[Dict[str, str]]:
     """
     Load proxy list from file.
@@ -254,8 +257,14 @@ def load_proxies_from_file(filepath: str) -> List[Dict[str, str]]:
         List of proxy dictionaries
     """
     proxies = []
+    # Normalize and validate the filepath
+    base_dir = os.path.abspath(PROXY_FILES_DIR)
+    requested_path = os.path.abspath(os.path.normpath(os.path.join(base_dir, filepath)))
+    if not requested_path.startswith(base_dir):
+        print(f"Error: Access to files outside directory '{PROXY_FILES_DIR}' is not allowed.")
+        return []
     try:
-        with open(filepath, 'r') as f:
+        with open(requested_path, 'r') as f:
             for line in f:
                 line = line.strip()
                 if line and not line.startswith('#'):
@@ -266,7 +275,7 @@ def load_proxies_from_file(filepath: str) -> List[Dict[str, str]]:
                     }
                     proxies.append(proxy_dict)
     except Exception as e:
-        print(f"Error loading proxies from {filepath}: {e}")
+        print(f"Error loading proxies from {requested_path}: {e}")
     
     return proxies
 
