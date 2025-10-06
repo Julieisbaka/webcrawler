@@ -244,7 +244,7 @@ def load_proxies_from_file(filepath: str) -> List[Dict[str, str]]:
     """
     proxies = []
     try:
-        with open(filepath, "r") as f:
+        with open(filepath, "r", encoding="utf-8") as f:
             for line in f:
                 line = line.strip()
                 if line and not line.startswith("#"):
